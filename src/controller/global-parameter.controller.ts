@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import response from "../helper/response.helper";
 import * as service from "../service/global-parameter.service";
+import * as winston from "../helper/log.helper";
 
 const All = async (req: Request, res: Response) => {
   let resp;

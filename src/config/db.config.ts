@@ -1,8 +1,9 @@
 import load from "./env.config";
+import { knex } from "knex";
 
 let env = load.env();
 
-const knex = require("knex")({
+const knexx = knex({
   client: "pg",
   connection: {
     host: env.DB_HOST,
@@ -13,4 +14,4 @@ const knex = require("knex")({
   },
 });
 
-export default knex;
+export default knexx;

@@ -20,7 +20,6 @@ const Find = async (id: number) => {
 
 const Insert = async (data: any) => {
   try {
-    console.log(data);
     let { code, name, value, description, status_id } = data;
     let dataInsert: insertInterface;
     dataInsert = {
@@ -65,7 +64,7 @@ const Delete = async (id: number) => {
         console.log("first")
       throw new Error("data not found!");
     }
-    
+
     return await repository.Delete(id);
   } catch (error) {
     throw error;

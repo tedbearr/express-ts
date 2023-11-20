@@ -1,7 +1,13 @@
 import knex from "../config/db.config";
+import { updateInterface } from "../dto/global-parameter.dto";
+
+interface GlobalParameter {
+  id: number;
+}
 
 const All = async () => {
-  let result = await knex("global_parameter");
+  let result = await knex<GlobalParameter>("global_parameter");
+  console.log();
   return result;
 };
 
