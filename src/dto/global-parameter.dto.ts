@@ -1,0 +1,3 @@
+interface All {}
+
+export { All };
