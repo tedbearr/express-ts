@@ -1,10 +1,12 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
+import bodyParser from "body-parser";
 import load from "./config/env.config";
 import globalParameterRoute from "./route/global-parameter.route";
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json({ limit: '25mb' }));
 
 let loadEnv = load.env();
 const port = loadEnv.PORT

@@ -1,3 +1,14 @@
-interface All {}
+interface insertInterface {
+  code: string;
+  name: string;
+  value: string;
+  description: string;
+  status_id: number;
+}
 
-export { All };
+interface updateInterface {
+  code: string;
+  updated_at: any;
+}
+
+export { insertInterface, updateInterface };
