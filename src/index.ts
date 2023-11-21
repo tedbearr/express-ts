@@ -13,7 +13,7 @@ let loadEnv = load.env();
 const port = loadEnv.PORT;
 
 app.use(logger.request);
-app.use(logger.response)
+app.use(logger.response);
 
 app.get("/", (req: Request, res: Response) => {
   return res.status(200).json("Welcome!");

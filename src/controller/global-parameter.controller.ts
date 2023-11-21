@@ -4,66 +4,39 @@ import * as service from "../service/global-parameter.service";
 import * as winston from "../helper/log.helper";
 
 const All = async (req: Request, res: Response) => {
-  let resp;
-  try {
-    let globalParameter = await service.All();
-    resp = response.response("00", "success", globalParameter);
-  } catch (error) {
-    resp = response.response("500", `${(error as Error).message}`, []);
-  }
+  let result = await service.All();
 
-  return res.status(200).json(resp);
+  return res.status(200).json(result);
 };
 
 const Find = async (req: Request, res: Response) => {
   let { id } = req.params;
-  let resp;
-  try {
-    let find = await service.Find(parseInt(id));
-    resp = response.response("00", "success", find);
-  } catch (error) {
-    resp = response.response("500", `${(error as Error).message}`, {});
-  }
 
-  return res.status(200).json(resp);
+  let result = await service.Find(parseInt(id));
+
+  return res.status(200).json(result);
 };
 
 const Insert = async (req: Request, res: Response) => {
-  let resp;
-  try {
-    await service.Insert(req.body);
-    resp = response.response("00", "success", {});
-  } catch (error) {
-    resp = response.response("500", `${(error as Error).message}`, {});
-  }
+  let result = await service.Insert(req.body);
 
-  return res.status(200).json(resp);
+  return res.status(200).json(result);
 };
 
 const Update = async (req: Request, res: Response) => {
-  let resp;
   let { id } = req.params;
-  try {
-    await service.Update(req.body, parseInt(id));
-    resp = response.response("00", "success", {});
-  } catch (error) {
-    resp = response.response("500", `${(error as Error).message}`, {});
-  }
 
-  return res.status(200).json(resp);
+  let result = await service.Update(req.body, parseInt(id));
+
+  return res.status(200).json(result);
 };
 
 const Delete = async (req: Request, res: Response) => {
-  let resp;
   let { id } = req.params;
-  try {
-    await service.Delete(parseInt(id));
-    resp = response.response("00", "success", {});
-  } catch (error) {
-    resp = response.response("500", `${(error as Error).message}`, {});
-  }
+  
+  let result = await service.Delete(parseInt(id));
 
-  return res.status(200).json(resp);
+  return res.status(200).json(result);
 };
 
 export { All, Find, Insert, Update, Delete };

@@ -9,7 +9,7 @@
     "types": ["node"],
     "outDir": "./dist",
     "rootDir": "./src",
-    "typeRoots": ["./src/types"]
+    "typeRoots": ["./src/types/"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

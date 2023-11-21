@@ -5,16 +5,15 @@ import "winston-daily-rotate-file";
 
 const { combine, timestamp, printf, align, json } = winston.format;
 
-// const logMiddleware = (next: NextFunction) => {
+const logRotateFile = new winston.transports.DailyRotateFile({
+  filename: "logs/%DATE%.normal.log",
+  datePattern: "YYYY-MM-DD",
+  maxFiles: "1d",
+});
+
 const logger = {
   request: eWinston.logger({
-    transports: [
-      new winston.transports.DailyRotateFile({
-        filename: "logs/%DATE%.DAILY.log",
-        datePattern: "YYYY-MM-DD",
-        maxFiles: "2d",
-      }),
-    ],
+    transports: [logRotateFile],
     format: combine(
       timestamp({
         format: "YYYY-MM-DD HH:mm:ss.SSS",
@@ -25,7 +24,7 @@ const logger = {
           `[${info.timestamp}] REQ ${
             JSON.stringify(info.meta.req.body)
               ? JSON.stringify(info.meta.req.body)
-              : {}
+              : JSON.stringify({})
           } ${info.meta.req.originalUrl} ${info.meta.req.ip}`
       )
     ),
@@ -38,13 +37,7 @@ const logger = {
     ],
   }),
   response: eWinston.logger({
-    transports: [
-      new winston.transports.DailyRotateFile({
-        filename: "logs/%DATE%.DAILY.log",
-        datePattern: "YYYY-MM-DD",
-        maxFiles: "2d",
-      }),
-    ],
+    transports: [logRotateFile],
     format: combine(
       timestamp({
         format: "YYYY-MM-DD HH:mm:ss.SSS",
@@ -69,11 +62,6 @@ const logger = {
       "timestamp",
     ],
   }),
-  //   return next;
-};
-
-const testMiddleware = () => {
-  console.log("first");
 };
 
 export { logger };

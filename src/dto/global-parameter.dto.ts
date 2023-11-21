@@ -11,4 +11,11 @@ interface updateInterface {
   updated_at: any;
 }
 
-export { insertInterface, updateInterface };
+interface allGlobalParameter {
+  id: number;
+  // code: string;
+  // created_at: any;
+  // updated_at: any;
+}
+
+export { insertInterface, updateInterface, allGlobalParameter };
