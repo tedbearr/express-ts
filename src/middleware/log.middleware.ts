@@ -1,4 +1,4 @@
-import { NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import eWinston from "express-winston";
 import winston from "winston";
 import "winston-daily-rotate-file";

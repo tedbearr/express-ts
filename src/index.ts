@@ -6,6 +6,7 @@ import globalParameterRoute from "./route/global-parameter.route";
 import { logger } from "./middleware/log.middleware";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import authRoute from "./route/auth.route";
 
 const app = express();
 app.use(cors());
@@ -45,7 +46,7 @@ app.get("/", (req: Request, res: Response) => {
   return res.status(200).json("Welcome!");
 });
 
-app.use("/api/v1", globalParameterRoute);
+app.use("/api/v1", globalParameterRoute, authRoute);
 
 app.use("*", (req: Request, res: Response) => {
   return res.status(404).json("What are you looking for");

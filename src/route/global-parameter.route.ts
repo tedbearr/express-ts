@@ -2,6 +2,7 @@ import { Router } from "express";
 import * as controller from "../controller/global-parameter.controller";
 import validate from "../middleware/zod.middleware";
 import { insertValidation } from "../validation/global-parameter.validation";
+import { jwtMiddleware } from "../middleware/jwt.middleware";
 
 const router = Router();
 
@@ -11,8 +12,8 @@ const router = Router();
  * /api/v1/global-parameter
  * get
  */
-router.get("/global-parameter", controller.All);
-router.get("/global-parameter/:id", controller.Find);
+router.get("/global-parameter", jwtMiddleware, controller.All);
+router.get("/global-parameter/:id", jwtMiddleware, controller.Find);
 router.post(
   "/global-parameter/insert",
   validate(insertValidation),

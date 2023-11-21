@@ -8,6 +8,9 @@ interface EnvInterface {
   DB_PORT: number;
   DB_USER: string;
   DB_PASSWORD: string;
+  ACCESS_TOKEN_SECRET: string;
+  REFRESH_TOKEN_SECRET: string;
+  TOKEN_EXPIRED: string;
 }
 
 const env = (): EnvInterface => {
@@ -53,6 +56,20 @@ const env = (): EnvInterface => {
       throw new Error("Fail to load env DB_PASSWORD");
     }
 
+    let accessToken = process.env.JWT_ACCESS_TOKEN_SECRET;
+    if (!accessToken || accessToken == undefined) {
+      throw new Error("JWT_ACCESS_TOKEN_SECRET env found");
+    }
+
+    let refreshToken = process.env.JWT_REFRESH_TOKEN_SECRET;
+    if (!refreshToken || refreshToken == undefined) {
+      throw new Error("JWT_REFRESH_TOKEN_SECRET env not found");
+    }
+
+    let tokenExp = process.env.JWT_EXPIRATION;
+    if (!tokenExp || tokenExp == undefined) {
+      throw new Error("JWT_EXPIRATION env not found");
+    }
     obj = {
       PORT: appPort,
       APP_FOR: appFor,
@@ -61,6 +78,9 @@ const env = (): EnvInterface => {
       DB_PORT: dbPort,
       DB_USER: dbUser,
       DB_PASSWORD: dbPassword,
+      ACCESS_TOKEN_SECRET: accessToken,
+      REFRESH_TOKEN_SECRET: refreshToken,
+      TOKEN_EXPIRED: tokenExp,
     };
   } catch (error) {
     console.log(error);
