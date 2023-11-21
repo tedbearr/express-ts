@@ -5,6 +5,12 @@ import { insertValidation } from "../validation/global-parameter.validation";
 
 const router = Router();
 
+// route/global-parameter.route.ts
+/**
+ * @swagger
+ * /api/v1/global-parameter
+ * get
+ */
 router.get("/global-parameter", controller.All);
 router.get("/global-parameter/:id", controller.Find);
 router.post(

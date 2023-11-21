@@ -4,6 +4,8 @@ import bodyParser from "body-parser";
 import load from "./config/env.config";
 import globalParameterRoute from "./route/global-parameter.route";
 import { logger } from "./middleware/log.middleware";
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
 const app = express();
 app.use(cors());
@@ -11,6 +13,30 @@ app.use(bodyParser.json());
 
 let loadEnv = load.env();
 const port = loadEnv.PORT;
+
+const swaggerDefinition = {
+  openapi: "3.0.0",
+  info: {
+    title: "Express API for JSONPlaceholder",
+    version: "1.0.0",
+  },
+  servers: [
+    {
+      url: "http://localhost:3001",
+      description: "Local-Development server",
+    },
+  ],
+};
+
+const options = {
+  swaggerDefinition,
+  // Paths to files containing OpenAPI definitions
+  apis: ["./route/*"],
+};
+
+const swaggerSpec = swaggerJsDoc(options);
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(logger.request);
 app.use(logger.response);
