@@ -18,6 +18,7 @@ const Find = async (req: Request, res: Response) => {
 };
 
 const Insert = async (req: Request, res: Response) => {
+  
   let result = await service.Insert(req.body);
 
   return res.status(200).json(result);
@@ -33,7 +34,7 @@ const Update = async (req: Request, res: Response) => {
 
 const Delete = async (req: Request, res: Response) => {
   let { id } = req.params;
-  
+
   let result = await service.Delete(parseInt(id));
 
   return res.status(200).json(result);
