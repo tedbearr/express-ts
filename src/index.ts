@@ -3,7 +3,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import load from "./config/env.config";
 import globalParameterRoute from "./route/global-parameter.route";
-import { logger } from "./middleware/log.middleware";
+import { logger, uniqueCodeMiddleware } from "./middleware/log.middleware";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import authRoute from "./route/auth.route";
@@ -18,7 +18,7 @@ const port = loadEnv.PORT;
 const swaggerDefinition = {
   openapi: "3.0.0",
   info: {
-    title: "Express API for JSONPlaceholder",
+    title: "Welcome!",
     version: "1.0.0",
   },
   servers: [
@@ -27,17 +27,33 @@ const swaggerDefinition = {
       description: "Local-Development server",
     },
   ],
+  components: {
+    securitySchemes: {
+      bearer: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+      },
+    },
+  },
+  security: [
+    {
+      bearer: [],
+    },
+  ],
 };
 
 const options = {
   swaggerDefinition,
   // Paths to files containing OpenAPI definitions
-  apis: ["./route/*"],
+  apis: ["./src/route/*"],
 };
 
 const swaggerSpec = swaggerJsDoc(options);
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use(uniqueCodeMiddleware);
 
 app.use(logger.request);
 app.use(logger.response);

@@ -10,7 +10,7 @@ const { combine, timestamp, printf, align, json } = winston.format;
 const fileRotateTransport = new winston.transports.DailyRotateFile({
   filename: "logs/%DATE%.trx.log",
   datePattern: "YYYY-MM-DD",
-  maxFiles: "2d",
+  maxFiles: "1d",
 });
 
 const level = () => {

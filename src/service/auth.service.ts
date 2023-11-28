@@ -51,7 +51,7 @@ const Login = async (data: any) => {
     );
   } catch (error) {
     response = build.response("500", `${(error as Error).message}`, {});
-    winston.logger.warn(
+    winston.logger.error(
       uniqueCode + " [LOGIN] response " + JSON.stringify(response)
     );
   }

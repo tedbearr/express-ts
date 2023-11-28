@@ -15,11 +15,3 @@ declare module "knex/types/tables" {
     // >;
   }
 }
-
-declare global {
-  namespace Express {
-    interface Request {
-      username: string | undefined;
-    }
-  }
-}

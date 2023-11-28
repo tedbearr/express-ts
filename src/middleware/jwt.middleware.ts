@@ -9,7 +9,7 @@ const jwtMiddleware = (req: Request, res: Response, next: NextFunction) => {
 
   if (getHeader) {
     if (!token) {
-      return build.response("400", "token not found", {});
+      return res.status(200).json(build.response("400", "token not found", {}));
     }
 
     let verifyOptions = {
@@ -22,17 +22,15 @@ const jwtMiddleware = (req: Request, res: Response, next: NextFunction) => {
       verifyOptions,
       (err: any, data: any) => {
         if (err) {
-          return build.response("400", "invalid token", {});
+          let result = build.response("400", "invalid token", {});
+          return res.status(200).json(result);
         }
-        console.log(data);
-        // req.username = data.username;
+        next();
       }
     );
   } else {
-    return build.response("400", "header not found", {});
+    return res.status(200).json(build.response("400", "header not found", {}));
   }
-
-  next();
 };
 
 export { jwtMiddleware };

@@ -18,7 +18,7 @@ const Find = async (req: Request, res: Response) => {
 };
 
 const Insert = async (req: Request, res: Response) => {
-  
+
   let result = await service.Insert(req.body);
 
   return res.status(200).json(result);

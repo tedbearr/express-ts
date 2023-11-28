@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import eWinston from "express-winston";
 import winston from "winston";
 import "winston-daily-rotate-file";
+import { generateUniqueCode } from "../helper/unique-code.helper";
 
 const { combine, timestamp, printf, align, json } = winston.format;
 
@@ -10,6 +11,17 @@ const logRotateFile = new winston.transports.DailyRotateFile({
   datePattern: "YYYY-MM-DD",
   maxFiles: "1d",
 });
+
+var uniqueCode: string;
+
+const uniqueCodeMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  uniqueCode = generateUniqueCode();
+  next();
+};
 
 const logger = {
   request: eWinston.logger({
@@ -21,11 +33,11 @@ const logger = {
       align(),
       printf(
         (info) =>
-          `[${info.timestamp}] REQ ${
+          `[${info.timestamp}] REQ ${uniqueCode} ${info.meta.req.originalUrl} ${
             JSON.stringify(info.meta.req.body)
               ? JSON.stringify(info.meta.req.body)
               : JSON.stringify({})
-          } ${info.meta.req.originalUrl} ${info.meta.req.ip}`
+          } ${info.meta.req.ip}`
       )
     ),
     requestWhitelist: [
@@ -45,7 +57,7 @@ const logger = {
       align(),
       printf(
         (info) =>
-          `[${info.timestamp}] RES ${info.meta.req.originalUrl} ${
+          `[${info.timestamp}] RES ${uniqueCode} ${info.meta.req.originalUrl} ${
             info.meta.responseTime
           }ms ${
             JSON.stringify(info.meta.res.body)
@@ -64,4 +76,4 @@ const logger = {
   }),
 };
 
-export { logger };
+export { logger, uniqueCodeMiddleware };
