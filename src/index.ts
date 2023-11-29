@@ -7,6 +7,8 @@ import { logger, uniqueCodeMiddleware } from "./middleware/log.middleware";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import authRoute from "./route/auth.route";
+import menuRoute from "./route/menu.route";
+import roleRoute from "./route/role.route";
 
 const app = express();
 app.use(cors());
@@ -62,7 +64,7 @@ app.get("/", (req: Request, res: Response) => {
   return res.status(200).json("Welcome!");
 });
 
-app.use("/api/v1", globalParameterRoute, authRoute);
+app.use("/api/v1", globalParameterRoute, authRoute, menuRoute, roleRoute);
 
 app.use("*", (req: Request, res: Response) => {
   return res.status(404).json("What are you looking for");
