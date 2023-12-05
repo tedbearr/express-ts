@@ -61,7 +61,7 @@ app.use(logger.request);
 app.use(logger.response);
 
 app.get("/", (req: Request, res: Response) => {
-  return res.status(200).json("Welcomeeee!");
+  return res.status(200).json("Welcome!");
 });
 
 app.use("/api/v1", globalParameterRoute, authRoute, menuRoute, roleRoute);
