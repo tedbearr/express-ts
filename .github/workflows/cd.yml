@@ -21,6 +21,6 @@ jobs:
           git pull origin master
           git status
           pm2 restart 0
-          npx tsc
+          npm run build
           pm2 restart 0
         
