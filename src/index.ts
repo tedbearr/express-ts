@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 
 let loadEnv = load.env();
 const port = loadEnv.PORT ? Number(loadEnv.PORT) : 3001;
+const host = process.env.APP_HOST;
 
 const swaggerDefinition = {
   openapi: "3.0.0",
@@ -25,7 +26,7 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: "http://localhost:3001",
+      url: host + String(port),
       description: "Local-Development server",
     },
   ],
@@ -61,7 +62,7 @@ app.use(logger.request);
 app.use(logger.response);
 
 app.get("/", (req: Request, res: Response) => {
-  return res.status(200).json("Welcom!");
+  return res.status(200).json("Welcome!");
 });
 
 app.use("/api/v1", globalParameterRoute, authRoute, menuRoute, roleRoute);
