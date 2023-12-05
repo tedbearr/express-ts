@@ -21,6 +21,8 @@ jobs:
           git pull origin master
           git status
           pm2 restart 0
+          source ~/.nvm/nvm.sh
+          nvm use 18
           npm install
           npm run build
           pm2 restart 0
