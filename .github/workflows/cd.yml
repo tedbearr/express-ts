@@ -1,0 +1,26 @@
+name: cd
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy Using ssh
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /repository/express-ts
+          git pull origin master
+          git status
+          pm2 restart 0
+          npx tsc
+          pm2 restart 0
+        
