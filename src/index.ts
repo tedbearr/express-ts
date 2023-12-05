@@ -15,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 let loadEnv = load.env();
-const port = loadEnv.PORT;
+const port = loadEnv.PORT ? Number(loadEnv.PORT) : 3001;
 
 const swaggerDefinition = {
   openapi: "3.0.0",
