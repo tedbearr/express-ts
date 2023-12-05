@@ -88,7 +88,7 @@ const Update = async (req: Request) => {
     let data = {
       name: title,
       icon: icon,
-      path: path,
+      path_url: path,
       menu_parent_id: menu_parent_id,
       updated_at: moment().format("YYYY-MM-DD HH:mm:ss"),
     };

@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "strict": true,
     "declaration": false,
-    // "types": ["node"],
+    // "types": ["node", "express"],
     "outDir": "./dist",
     "rootDir": "./src",
     "typeRoots": ["./src/types/"]
