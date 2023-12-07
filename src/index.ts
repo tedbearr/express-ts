@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 
 let loadEnv = load.env();
 const port = loadEnv.PORT;
+const appEnv = loadEnv.APP_FOR;
 
 const swaggerDefinition = {
   openapi: "3.0.0",
@@ -23,12 +24,12 @@ const swaggerDefinition = {
     title: "Welcome!",
     version: "1.0.0",
   },
-  servers: [
-    {
-      url: "http://localhost:3001",
-      description: "Local-Development server",
-    },
-  ],
+  // servers: [
+  //   {
+  //     url: "http://localhost:3002",
+  //     description: "Local-Development server",
+  //   },
+  // ],
   components: {
     schemas: ["./src/validation"],
     securitySchemes: {
@@ -49,7 +50,7 @@ const swaggerDefinition = {
 const options = {
   swaggerDefinition,
   // Paths to files containing OpenAPI definitions
-  apis: ["./src/route/*"],
+  apis: [appEnv == "local" ? "./src/route/*" : "./route/*"],
 };
 
 const swaggerSpec = swaggerJsDoc(options);
