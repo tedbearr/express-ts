@@ -31,6 +31,7 @@ const swaggerDefinition = {
     },
   ],
   components: {
+    schemas: ["./src/validation"],
     securitySchemes: {
       bearer: {
         type: "http",

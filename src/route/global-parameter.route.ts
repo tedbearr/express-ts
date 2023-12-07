@@ -7,7 +7,7 @@ import { jwtMiddleware } from "../middleware/jwt.middleware";
 const router = Router();
 
 /**
- * @swagger
+ * @openapi
  *  /api/v1/global-parameter/:
  *   get:
  *     tags: [Global Parameter]
@@ -42,23 +42,27 @@ router.get("/global-parameter", jwtMiddleware, controller.All);
 router.get("/global-parameter/:id", jwtMiddleware, controller.Find);
 
 /**
- * @swagger
+ * @openapi
  *  /api/v1/global-parameter/insert:
  *   post:
  *     tags: [Global Parameter]
- *     parameters:
- *       - in: body
- *         name: body
- *         schema:
- *           type: object
- *         required: true
- *         description: body request
- *     content:
- *       application/json
- *     description: Get All Global Parameter!
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               code:          
+ *                 type: string
+ *                 default: GLOBAL_PARAMETER_CODE
+ *             required:
+ *               - code          
  *     responses:
  *       200:
- *         description: Returns all global parameter data.
+ *         description: success
+ *       400:
+ *         description: Header not found
  */
 router.post(
   "/global-parameter/insert",
@@ -66,7 +70,57 @@ router.post(
   validate(insertValidation),
   controller.Insert
 );
+
+/**
+ * @openapi
+ *  /api/v1/global-parameter/update/{id}:
+ *   post:
+ *     tags: [Global Parameter]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: number
+ *        required: true
+ *        description: Global parameter id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               code:          
+ *                 type: string
+ *                 default: GLOBAL_PARAMETER_CODE
+ *             required:
+ *               - code          
+ *     responses:
+ *       200:
+ *         description: success
+ *       400:
+ *         description: Header not found
+ */
 router.post("/global-parameter/update/:id", jwtMiddleware, controller.Update);
+
+/**
+ * @openapi
+ *  /api/v1/global-parameter/delete/{id}:
+ *   post:
+ *     tags: [Global Parameter]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: number
+ *        required: true
+ *        description: Global parameter id       
+ *     responses:
+ *       200:
+ *         description: success
+ *       400:
+ *         description: Header not found
+ */
 router.post("/global-parameter/delete/:id", jwtMiddleware, controller.Delete);
 
 export default router;
